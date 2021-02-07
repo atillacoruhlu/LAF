@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[2].GetComponent<Detector>().TouchedObject == null
+             if (Input.GetKeyDown(KeyCode.D) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[2].GetComponent<Detector>().TouchedObject == null
         {
             try
             {
@@ -133,6 +133,7 @@ public class Movement : MonoBehaviour
             }
             else
             {
+                int turn=0;
                 for (int j = 0; j < 4; j++)
                 {
                     if (MyNewExtremities[j] != null)
@@ -143,18 +144,22 @@ public class Movement : MonoBehaviour
                             {
                                 if (i == 7)
                                 {
-                                    if (ObjectsDetectors[1].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[1].GetComponent<Detector>().TouchedObject.tag=="Filter")
+                                    if ((ObjectsDetectors[0].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[0].GetComponent<Detector>().TouchedObject.tag=="Filter")&&(ObjectsDetectors[1].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[1].GetComponent<Detector>().TouchedObject.tag=="Filter"||ObjectsDetectors[1].GetComponent<Detector>().TouchedObject.name[0]=='H'))
                                     {
-                                        gameObject.transform.Rotate(Vector3.up, 90f);
-                                        FindObjectOfType<AudioManager>().Play("Drag");
+                                        turn++;
+                                    }
+                                }else if (i == 6)
+                                {
+                                    if ((ObjectsDetectors[7].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[7].GetComponent<Detector>().TouchedObject.tag=="Filter")&&(ObjectsDetectors[0].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[0].GetComponent<Detector>().TouchedObject.tag=="Filter"||ObjectsDetectors[0].GetComponent<Detector>().TouchedObject.name[0]=='H'))
+                                    {
+                                        turn++;
                                     }
                                 }
                                 else
                                 {
-                                    if (ObjectsDetectors[i + 1].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[i+1].GetComponent<Detector>().TouchedObject.tag=="Filter")
+                                    if ((ObjectsDetectors[i + 1].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[i+1].GetComponent<Detector>().TouchedObject.tag=="Filter")&&(ObjectsDetectors[i + 2].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[i+2].GetComponent<Detector>().TouchedObject.tag=="Filter"||ObjectsDetectors[i+2].GetComponent<Detector>().TouchedObject.name[0]=='H'))
                                     {
-                                        gameObject.transform.Rotate(Vector3.up, 90f);
-                                        FindObjectOfType<AudioManager>().Play("Drag");
+                                        turn++;
                                     }
                                 }
 
@@ -162,6 +167,12 @@ public class Movement : MonoBehaviour
                         }
                     }
 
+                }
+                Debug.Log(turn);
+                if (turn==MyNewExtremitiesCount)
+                {
+                    gameObject.transform.Rotate(Vector3.up, 90f);
+                    FindObjectOfType<AudioManager>().Play("Drag");
                 }
 
             }
@@ -175,6 +186,7 @@ public class Movement : MonoBehaviour
             }
             else
             {
+                int turn=0;
                 for (int j = 0; j < 4; j++)
                 {
                     if (MyNewExtremities[j] != null)
@@ -185,25 +197,41 @@ public class Movement : MonoBehaviour
                             {
                                 if (i == 0)
                                 {
-                                    if (ObjectsDetectors[7].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[7].GetComponent<Detector>().TouchedObject.tag=="Filter")
+                                    if ((ObjectsDetectors[7].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[7].GetComponent<Detector>().TouchedObject.tag=="Filter")&&(ObjectsDetectors[6].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[6].GetComponent<Detector>().TouchedObject.tag=="Filter"||ObjectsDetectors[6].GetComponent<Detector>().TouchedObject.name[0]=='H'))
                                     {
-                                        gameObject.transform.Rotate(Vector3.up, -90f);
-                                        FindObjectOfType<AudioManager>().Play("Drag");
+                                        turn++;
+                                        
+                                    }
+                                }
+                                else if (i == 1)
+                                {
+                                    if ((ObjectsDetectors[0].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[0].GetComponent<Detector>().TouchedObject.tag=="Filter")&&(ObjectsDetectors[7].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[7].GetComponent<Detector>().TouchedObject.tag=="Filter"||ObjectsDetectors[7].GetComponent<Detector>().TouchedObject.name[0]=='H'))
+                                    {
+                                        turn++;
+                                        
                                     }
                                 }
                                 else
                                 {
-                                    if (ObjectsDetectors[i - 1].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[i - 1].GetComponent<Detector>().TouchedObject.tag=="Filter")
+                                    if ((ObjectsDetectors[i - 1].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[i - 1].GetComponent<Detector>().TouchedObject.tag=="Filter")&&(ObjectsDetectors[i - 2].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[i - 2].GetComponent<Detector>().TouchedObject.tag=="Filter"||ObjectsDetectors[i-2].GetComponent<Detector>().TouchedObject.name[0]=='H'))
                                     {
-                                        gameObject.transform.Rotate(Vector3.up, -90f);
-                                        FindObjectOfType<AudioManager>().Play("Drag");
+                                        turn++;
+                                        
                                     }
                                 }
                             }
                         }
                     }
                 }
+                Debug.Log(turn);
+                if (turn==MyNewExtremitiesCount)
+                {
+                    gameObject.transform.Rotate(Vector3.up, -90f);
+                    FindObjectOfType<AudioManager>().Play("Drag");
+                }
             }
+            
+
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
@@ -213,13 +241,19 @@ public class Movement : MonoBehaviour
                 {
                     if (MyTentacles[i].GetComponent<Tentacle>().TouchedObject != null)
                     {
-                        if (MyNewExtremities[i] != MyTentacles[i].GetComponent<Tentacle>().TouchedObject)
-                        {
-                            MyTentacles[i].GetComponent<Tentacle>().TouchedObject.transform.parent = transform;
                             MyNewExtremities[i] = MyTentacles[i].GetComponent<Tentacle>().TouchedObject;
+                            MyTentacles[i].GetComponent<Tentacle>().TouchedObject.transform.parent = transform;
+                            
                             MyNewExtremitiesCount++;
-                            FindObjectOfType<AudioManager>().Play("Click");
-                        }
+                            try
+                            {
+                                FindObjectOfType<AudioManager>().Play("Click");
+                            }
+                            catch (System.Exception)
+                            {
+                            }
+                            
+                        
 
                     }
                 }
