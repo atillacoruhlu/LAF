@@ -7,10 +7,18 @@ public class Detector : MonoBehaviour
     public GameObject TouchedObject;
     private void OnTriggerEnter(Collider other) 
     {
-        TouchedObject=other.transform.parent.gameObject; 
+        if (other.name!="Anahtar"&&other.name!="Exit")
+        {
+            TouchedObject=other.transform.parent.gameObject; 
+        }
+        
 
     }
     private void OnTriggerExit(Collider other) {
-        TouchedObject=null;
+        if (other.name!="Anahtar"&&other.name!="Exit")
+        {
+            TouchedObject=null;
+        }
+        
     }
 }

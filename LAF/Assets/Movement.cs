@@ -23,21 +23,104 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D) && MyNewExtremitiesCount < 1 && ObjectsDetectors[2].GetComponent<Detector>().TouchedObject == null)
+        if (Input.GetKeyDown(KeyCode.D) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[2].GetComponent<Detector>().TouchedObject == null
         {
-            gameObject.transform.parent.transform.Translate(Vector3.right, Space.World);
+            try
+            {
+                if (ObjectsDetectors[2].GetComponent<Detector>().TouchedObject.tag=="Static")
+                {
+                
+                }
+                else if (ObjectsDetectors[2].GetComponent<Detector>().TouchedObject.tag=="Filter")
+                {
+                    
+                }
+                else
+                {
+                    gameObject.transform.parent.transform.Translate(Vector3.right, Space.World);
+                }
+            }
+            catch (System.Exception)
+            {
+                gameObject.transform.parent.transform.Translate(Vector3.right, Space.World);
+                
+            }
+
+            
         }
-        else if (Input.GetKeyDown(KeyCode.A) && MyNewExtremitiesCount < 1 && ObjectsDetectors[6].GetComponent<Detector>().TouchedObject == null)
+        else if (Input.GetKeyDown(KeyCode.A) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[6].GetComponent<Detector>().TouchedObject == null
         {
-            gameObject.transform.parent.transform.Translate(Vector3.left, Space.World);
+            try
+            {
+                if (ObjectsDetectors[6].GetComponent<Detector>().TouchedObject.tag=="Static")
+                {
+                
+                }
+                else if (ObjectsDetectors[6].GetComponent<Detector>().TouchedObject.tag=="Filter")
+                {
+                    
+                }
+                else
+                {
+                    gameObject.transform.parent.transform.Translate(Vector3.left, Space.World);
+                }
+            }
+            catch (System.Exception)
+            {
+                gameObject.transform.parent.transform.Translate(Vector3.left, Space.World);
+                
+            }
+
+            
         }
-        else if (Input.GetKeyDown(KeyCode.W) && MyNewExtremitiesCount < 1 && ObjectsDetectors[0].GetComponent<Detector>().TouchedObject == null)
+        else if (Input.GetKeyDown(KeyCode.W) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[0].GetComponent<Detector>().TouchedObject == null
         {
-            gameObject.transform.parent.transform.Translate(Vector3.forward, Space.World);
+            try
+            {
+                if (ObjectsDetectors[0].GetComponent<Detector>().TouchedObject.tag=="Static")
+                {
+               
+                }
+                else if (ObjectsDetectors[0].GetComponent<Detector>().TouchedObject.tag=="Filter")
+                {
+                    
+                }
+                else
+                {
+                    gameObject.transform.parent.transform.Translate(Vector3.forward, Space.World);
+                }
+            }
+            catch (System.Exception)
+            {
+                gameObject.transform.parent.transform.Translate(Vector3.forward, Space.World);
+            }
+
+            
         }
-        else if (Input.GetKeyDown(KeyCode.S) && MyNewExtremitiesCount < 1 && ObjectsDetectors[4].GetComponent<Detector>().TouchedObject == null)
+        else if (Input.GetKeyDown(KeyCode.S) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[4].GetComponent<Detector>().TouchedObject == null
         {
-            gameObject.transform.parent.transform.Translate(Vector3.back, Space.World);
+            try
+            {
+                if (ObjectsDetectors[4].GetComponent<Detector>().TouchedObject.tag=="Static")
+                {
+                
+                }
+                else if (ObjectsDetectors[4].GetComponent<Detector>().TouchedObject.tag=="Filter")
+                {
+                    
+                }
+                else
+                {
+                    gameObject.transform.parent.transform.Translate(Vector3.back, Space.World);
+                }
+            }
+            catch (System.Exception)
+            {
+                
+                gameObject.transform.parent.transform.Translate(Vector3.back, Space.World);
+            }
+
+            
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
@@ -57,7 +140,7 @@ public class Movement : MonoBehaviour
                             {
                                 if (i == 7)
                                 {
-                                    if (ObjectsDetectors[1].GetComponent<Detector>().TouchedObject == null)
+                                    if (ObjectsDetectors[1].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[1].GetComponent<Detector>().TouchedObject.tag=="Filter")
                                     {
                                         gameObject.transform.Rotate(Vector3.up, 90f);
                                     }
@@ -65,7 +148,7 @@ public class Movement : MonoBehaviour
                                 }
                                 else
                                 {
-                                    if (ObjectsDetectors[i + 1].GetComponent<Detector>().TouchedObject == null)
+                                    if (ObjectsDetectors[i + 1].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[i+1].GetComponent<Detector>().TouchedObject.tag=="Filter")
                                     {
                                         gameObject.transform.Rotate(Vector3.up, 90f);
                                     }
@@ -97,14 +180,14 @@ public class Movement : MonoBehaviour
                             {
                                 if (i == 0)
                                 {
-                                    if (ObjectsDetectors[7].GetComponent<Detector>().TouchedObject == null)
+                                    if (ObjectsDetectors[7].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[7].GetComponent<Detector>().TouchedObject.tag=="Filter")
                                     {
                                         gameObject.transform.Rotate(Vector3.up, -90f);
                                     }
                                 }
                                 else
                                 {
-                                    if (ObjectsDetectors[i - 1].GetComponent<Detector>().TouchedObject == null)
+                                    if (ObjectsDetectors[i - 1].GetComponent<Detector>().TouchedObject == null||ObjectsDetectors[i - 1].GetComponent<Detector>().TouchedObject.tag=="Filter")
                                     {
                                         gameObject.transform.Rotate(Vector3.up, -90f);
                                     }
