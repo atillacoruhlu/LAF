@@ -3,26 +3,19 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [Header("Stickies")]
     public GameObject[] MyTentacles = new GameObject[4];
-    //0 forward
-    //1 right
-    //2 back
-    //3 left
+    //0 forward     1 right     2 back      3 left
     public GameObject[] MyNewExtremities = new GameObject[4];
     public int MyNewExtremitiesCount = 0;
     public GameObject[] ObjectsDetectors;
-    //0 Forward
-    //1 RightForward
-    //2 Right
-    //3 RightBack
-    //4 Back
-    //5 LeftBack
-    //6 Left
-    //7 LeftForward
-
+    //0 Forward    1 RightForward   2 Right    3 RightBack    4 Back   5 LeftBack    6 Left   7 LeftForward
+    [Header("Click Particles")]
+    public GameObject ClickParticle;
+    public GameObject UnClickParticle;
     void Update()
     {
-             if (Input.GetKeyDown(KeyCode.D) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[2].GetComponent<Detector>().TouchedObject == null
+             if ((Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.Keypad6)) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[2].GetComponent<Detector>().TouchedObject == null
         {
             try
             {
@@ -47,7 +40,7 @@ public class Movement : MonoBehaviour
 
             
         }
-        else if (Input.GetKeyDown(KeyCode.A) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[6].GetComponent<Detector>().TouchedObject == null
+        else if ((Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.Keypad4)) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[6].GetComponent<Detector>().TouchedObject == null
         {
             try
             {
@@ -73,7 +66,7 @@ public class Movement : MonoBehaviour
 
             
         }
-        else if (Input.GetKeyDown(KeyCode.W) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[0].GetComponent<Detector>().TouchedObject == null
+        else if ((Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow)||Input.GetKeyDown(KeyCode.Keypad8)) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[0].GetComponent<Detector>().TouchedObject == null
         {
             try
             {
@@ -98,7 +91,7 @@ public class Movement : MonoBehaviour
 
             
         }
-        else if (Input.GetKeyDown(KeyCode.S) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[4].GetComponent<Detector>().TouchedObject == null
+        else if ((Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow)||Input.GetKeyDown(KeyCode.Keypad2)) && MyNewExtremitiesCount < 1 )//&& ObjectsDetectors[4].GetComponent<Detector>().TouchedObject == null
         {
             try
             {
@@ -124,7 +117,7 @@ public class Movement : MonoBehaviour
 
             
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if ((Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.E)||Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.Keypad6)||Input.GetKeyDown(KeyCode.Keypad9)) && MyNewExtremitiesCount > 0)
         {
             if (MyNewExtremitiesCount < 1)
             {
@@ -177,7 +170,7 @@ public class Movement : MonoBehaviour
 
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if ((Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.Q)||Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.Keypad4)||Input.GetKeyDown(KeyCode.Keypad7)) && MyNewExtremitiesCount > 0)
         {
             if (MyNewExtremitiesCount < 1)
             {
@@ -233,7 +226,7 @@ public class Movement : MonoBehaviour
             
 
         }
-        else if (Input.GetKeyDown(KeyCode.F))
+        else if (Input.GetKeyDown(KeyCode.Space)||Input.GetKeyDown(KeyCode.F))
         {
             if (MyNewExtremitiesCount < 1)
             {
@@ -241,25 +234,18 @@ public class Movement : MonoBehaviour
                 {
                     if (MyTentacles[i].GetComponent<Tentacle>().TouchedObject != null)
                     {
+                            FindObjectOfType<AudioManager>().Play("Click");
+                            Destroy(Instantiate(ClickParticle,transform.position,Quaternion.Euler(90,0,0)),1f);
                             MyNewExtremities[i] = MyTentacles[i].GetComponent<Tentacle>().TouchedObject;
                             MyTentacles[i].GetComponent<Tentacle>().TouchedObject.transform.parent = transform;
-                            
                             MyNewExtremitiesCount++;
-                            try
-                            {
-                                FindObjectOfType<AudioManager>().Play("Click");
-                            }
-                            catch (System.Exception)
-                            {
-                            }
                             
-                        
-
                     }
                 }
             }
             else
             {
+                Destroy(Instantiate(UnClickParticle,transform.position,Quaternion.Euler(90,0,0)),1f);
                 for (int i = 0; i < 4; i++)
                 {
                     if (MyNewExtremities[i] != null)
