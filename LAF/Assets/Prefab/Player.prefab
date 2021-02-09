@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4620312079231593631}
-  offset: {x: 1, y: 10, z: -5}
+  offset: {x: 1, y: 8, z: -5}
   smoother: 0.125
   camera_obj: {fileID: 4383397399563487022}
 --- !u!1 &3023206623303208880
